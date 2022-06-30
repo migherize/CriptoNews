@@ -1,0 +1,49 @@
+{% extends 'Plantilla/main.html' %}
+{% load static %}
+
+{% block title %}  Crypto News {% endblock %}
+
+{% block news_single %}
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+    <div class="page-wrapper">
+        <div class="blog-title-area">
+            <span class="color-green"><a title="">{{ data.category }}</a></span>
+
+            <h3>{{ data.title }}</h3>
+
+            <div class="blog-meta big-meta">
+                <small><a title="">{{ data.date }}</a></small>
+                <small><a href="{{ inf.link_autor }}" title="">{{ data.autor }}</a></small>
+                <small><a href="" title=""><i class="fa fa-eye"></i> {{data.views}}</a></small>
+            </div><!-- end meta -->
+
+            <div class="post-sharing">
+                <ul class="list-inline">
+                    <li><a href="" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i> <span class="down-mobile">Share on Facebook</span></a></li>
+                    <li><a href="" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
+                    <li><a href="" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </div><!-- end post-sharing -->
+        </div><!-- end title -->
+
+        <div class="single-post-media" style="text-align : center;">
+                <img src="{{ data.image }}" alt="" class="img-fluid" style="width: auto;height: auto;">
+        </div><!-- end media -->
+
+        <div class="blog-content">  
+            <div class="pp">
+                {% for d in data.body_news %}
+                <p> {{ d }} </p>
+                {% endfor %}
+                <br>
+                <div id="divPadre">
+                    <div id="divHijo"><a href="{{ data.link }}" target="_blank" type="submit" class="btn btn-primary" style="align-content: center !important;"> More Information</a></div>
+                </div>
+                <br>
+                <br>
+                <br>
+            </div><!-- end pp -->
+        </div><!-- end content -->
+    </div><!-- end page-wrapper -->
+</div><!-- end col -->
+{% endblock %}

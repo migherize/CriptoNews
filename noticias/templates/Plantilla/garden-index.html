@@ -1,0 +1,61 @@
+{% extends 'Plantilla/main.html' %}
+{% load static %}
+
+{% block title %}  Crypto News {% endblock %}
+
+{% block news %}
+<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+    <div class="page-wrapper">
+        <div class="blog-list clearfix">
+            {% for inf in data %}
+            <div class="blog-box row">
+                <div class="col-md-4">
+                    <div class="post-media">
+                        <a href="{% url 'view_new' noticia=inf.id %}" title="">
+                            <img src=" {{ inf.image }} " alt="" class="img-fluid">
+                            <div class="hovereffect"></div>
+                        </a>
+                    </div><!-- end media -->
+                </div><!-- end col -->
+
+                <div class="blog-meta big-meta col-md-8">
+                    <span class="bg-aqua"><a title="">{{ inf.category }}</a></span>
+                    <h4><a href="{% url 'view_new' noticia=inf.id %}" title="">{{ inf.title }}</a></h4>
+                    <p>{{ inf.description }}</p>
+                    <small><a title=""><i class="fa fa-eye"></i>  {{inf.views}}</a></small>
+                    <small>
+                        {% if 'en-US' ==  inf.language %}
+                            <a title=""> <img src="{% static 'css/images/england.png' %}" alt="ENG" width="16" height="11"> {{ inf.language }}</a></small>
+                        {% elif 'it-IT' ==  inf.language %}
+                            <a title=""> <img src="{% static 'css/images/italia.jpeg' %}" alt="ENG" width="16" height="11"> {{ inf.language }}</a></small>
+                        {% else %}
+                            <a title=""> {{ inf.language }}</a></small>
+                        {% endif %}
+
+                    <small><a title="">{{ inf.date }}</a></small>
+                    <small><a href="{{ inf.link_autor }}" target="_blank" title="">{{ inf.autor }}</a></small>
+                </div><!-- end meta -->
+            </div><!-- end blog-box -->
+            <hr class="invis">
+            {% endfor %}
+        </div><!-- end blog-list -->
+    </div><!-- end page-wrapper -->
+
+    <hr class="invis">
+
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-start">
+                    <li class="page-item"><a class="page-link" href="">1</a></li>
+                    <li class="page-item"><a class="page-link" href="">2</a></li>
+                    <li class="page-item"><a class="page-link" href="">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div><!-- end col -->
+    </div><!-- end row -->
+</div><!-- end col -->
+{% endblock %}
