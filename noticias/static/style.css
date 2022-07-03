@@ -262,13 +262,9 @@ header{
 }
 
 #divPadre {
-    height:100px;
-    width:800px;
     text-align:center;
 }
 #divHijo {
-    height:50px;
-    width:400px;
     margin:0px auto;
 }
 
