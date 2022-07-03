@@ -5,6 +5,8 @@ import json
 import os
 import re
 import subprocess
+from django.core.paginator import Paginator
+from django.http import Http404
 
 #path_folder = (os.getcwd())+ '/noticias/data/'
 path_folder = os.getcwd() + '/noticias/data/'
@@ -77,9 +79,17 @@ def insert_json(request):
 def main(request):
     #insert_json()
     data = News.objects.all()
-    print("data",len(data))
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(data,10)
+        data = paginator.page(page)
+    
+    except:
+        raise Http404
+
+    print(page,"data",len(data))
     last_three = data[0:3]
-    return render(request, 'Plantilla/garden-index.html', { 'data': data, 'post': last_three  })
+    return render(request, 'Plantilla/garden-index.html', { 'data': data, 'post': last_three, 'paginator': paginator, 'entity': data})
 
 def view_new(request,noticia):
     data = News.objects.get(id=int(noticia))
@@ -105,6 +115,7 @@ def upload(request):
 def filter(request,filtro):
     print("Filtrar por:",filtro,filtro[0:3],filtro[-5:])
     data_all = News.objects.all()
+    page = request.GET.get('page',1)
     last_three = data_all[0:3]
 
     if filtro[0:3] == 'Len':
@@ -117,6 +128,13 @@ def filter(request,filtro):
         print("CAtegory")
         data = News.objects.filter(category=str(filtro))
 
+    try:
+        paginator = Paginator(data,10)
+        data = paginator.page(page)
+    
+    except:
+        raise Http404
+
     print("data",data)
-    return render(request, 'Plantilla/garden-index.html', { 'data': data, 'post': last_three })
+    return render(request, 'Plantilla/garden-index.html', { 'data': data, 'post': last_three,'paginator': paginator, 'entity': data })
     #return HttpResponseRedirect('/')
